@@ -1,0 +1,26 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "organic-clip-path",
+        "value": "*",
+        "files": [
+          "index.html"
+        ],
+        "createdAt": "2026-10-23T05:29:30.539Z",
+        "reason": "Claude: regular zigzag receipt edge from the dealt blueprint (geometric, not an organic contour)"
+      },
+      {
+        "rule": "tight-leading",
+        "value": "*",
+        "files": [
+          "leadmagnet/checklist.html"
+        ],
+        "createdAt": "2026-10-23T05:29:30.913Z",
+        "reason": "Claude: only display headings (h1/h2) use leading 1.0-1.13; body text is 1.5"
+      }
+    ]
+  }
+}
