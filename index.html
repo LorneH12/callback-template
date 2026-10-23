@@ -4,267 +4,525 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Callback — Framer Template for Local Service Businesses</title>
-<meta name="description" content="A Framer template for cleaners, contractors and local service businesses, built to make the phone ring. $29 direct or $39 on the Framer Marketplace.">
-<meta property="og:title" content="Callback — Framer template for local service businesses">
-<meta property="og:description" content="Tap-to-call everywhere, a quote form one tap away, reviews and service area built in. $29 direct.">
-<meta property="og:image" content="img/hero.jpg">
+<meta name="description" content="Callback is a Framer website template for cleaners, contractors and local service businesses, built to make the phone ring. $29 direct, or $39 on the Framer Marketplace.">
+<meta property="og:title" content="Callback — the Framer template that makes the phone ring">
+<meta property="og:description" content="Tap-to-call everywhere, a quote form one tap away, prices and reviews built in. $29 direct.">
+<meta property="og:image" content="https://lorneh12.github.io/callback-template/img/hero.jpg">
 <meta property="og:type" content="product">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://lorneh12.github.io/callback-template/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --ink: #141210; --paper: #f6f2ea; --surface: #ffffff; --body: #3b362f; --muted: #5f584e;
-    --accent: #1f7a4d; --accent-soft: #e3efe7; --line: rgba(20, 18, 16, 0.12);
-    --radius: 24px; --wrap: 1120px;
+    --ground: #f6f2ea;      /* paper */
+    --sheet: #fbf9f4;       /* one tone up */
+    --ink: #141210;
+    --soft: #4d473f;        /* softer ink, 7:1 on paper */
+    --accent: #1f7a4d;
+    --accent-deep: #17603c;
+    --field: #e3efe7;
+    --on-accent: #ffffff;
+    --r: 20px;
+    --m: clamp(20px, 2.4vw, 32px);
+    --xl: clamp(52px, 6.6vw, 104px);
+    --l: clamp(36px, 3.6vw, 56px);
+    --md: 28px;
+    --body: 18px;
+    --sm: 15px;
+    --ease: cubic-bezier(.2, .7, .2, 1);
   }
   * { box-sizing: border-box; margin: 0; }
   html { scroll-behavior: smooth; }
-  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  body { background: var(--paper); color: var(--body); font: 400 18px/1.55 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
-  img { display: block; max-width: 100%; height: auto; }
+  body { background: var(--ground); color: var(--ink); font: 400 var(--body)/1.55 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  img, video { display: block; max-width: 100%; height: auto; }
   a { color: inherit; }
-  .wrap { width: var(--wrap); max-width: 100%; margin: 0 auto; padding: 0 24px; }
-  h1, h2 { font-family: Fraunces, Georgia, serif; color: var(--ink); font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
-  h1 { font-size: clamp(40px, 7vw, 72px); line-height: 1; }
-  h2 { font-size: clamp(32px, 5vw, 48px); line-height: 1.05; }
-  h3 { color: var(--ink); font-size: 20px; line-height: 1.3; font-weight: 600; }
-  .eyebrow { color: var(--accent); font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
-  .lead { font-size: 20px; text-wrap: pretty; }
-  .muted { color: var(--muted); }
-
+  h1, h2, h3 { font-family: Fraunces, Georgia, serif; font-weight: 700; letter-spacing: -0.025em; line-height: 1; text-wrap: balance; }
+  p { text-wrap: pretty; }
   .skip { position: absolute; left: -9999px; }
-  .skip:focus { left: 16px; top: 16px; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 8px; z-index: 10; }
+  .skip:focus { left: 16px; top: 16px; z-index: 20; background: var(--ink); color: var(--ground); padding: 12px 16px; border-radius: 999px; }
   :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 
-  header { position: sticky; top: 0; z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
-  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
-  .brand { display: flex; align-items: center; gap: 10px; font: 700 22px/1 Fraunces, serif; color: var(--ink); text-decoration: none; }
-  .mark { width: 32px; height: 32px; border-radius: 10px; background: var(--accent); display: grid; place-items: center; }
-  .nav nav { display: flex; gap: 28px; font-weight: 500; font-size: 16px; }
-  .nav nav a { text-decoration: none; color: var(--body); }
-  .nav nav a:hover { color: var(--accent); }
-
-  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 24px; border-radius: 999px;
-         font: 600 17px/1 Inter, sans-serif; text-decoration: none; border: 1.5px solid transparent; cursor: pointer; transition: opacity .2s, transform .15s; }
-  .btn:hover { opacity: .88; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 56px; padding: 0 28px; border-radius: 999px; border: 0;
+         background: var(--accent); color: var(--on-accent); font: 600 var(--body)/1 Inter, sans-serif; text-decoration: none; cursor: pointer;
+         transition: background-color .2s var(--ease), transform .15s var(--ease); }
+  .btn:hover { background: var(--accent-deep); }
   .btn:active { transform: scale(.97); }
-  .btn-primary { background: var(--accent); color: #fff; }
-  .btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
-  .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
-  .btn-sm { min-height: 44px; padding: 0 18px; font-size: 15px; }
+  .btn.ink { background: var(--ink); }
+  .btn.ink:hover { background: #2a2622; }
+  .btn.paper { background: var(--ground); color: var(--ink); }
+  .btn.paper:hover { background: #fff; }
+  .btn[aria-disabled="true"] { cursor: not-allowed; }
+  .btn[aria-disabled="true"]::after { content: " · opens soon"; font-weight: 400; margin-left: .3em; }
+  .tlink { color: var(--ink); text-underline-offset: 4px; text-decoration-thickness: 2px; font-weight: 600; transition: color .2s; }
+  .tlink:hover { color: var(--accent); }
 
-  .hero { padding: 72px 0 40px; }
-  .hero-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
-  .hero-copy { display: grid; gap: 24px; max-width: 760px; }
-  .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-  .save { display: inline-block; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 15px; padding: 6px 12px; border-radius: 999px; }
-  .shot { border-radius: 20px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); }
+  /* ---------- split stage ---------- */
+  .stage { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 12px var(--m) 0; }
+  .reading { display: grid; gap: 12px; align-content: start; }
+  .sheet { background: var(--sheet); border-radius: var(--r); padding: clamp(28px, 4vw, 64px); }
+  .fixed { position: sticky; top: 12px; height: calc(100svh - 24px); border-radius: var(--r); background: var(--accent); overflow: hidden;
+           display: grid; grid-template-rows: 1fr 56px; }
+  .fixed-art { display: grid; place-items: center; padding: 32px 24px 16px; min-height: 0; }
+  .bar { background: var(--ground); display: flex; align-items: center; justify-content: space-between; padding: 0 22px; font-size: var(--sm); color: var(--ink); }
 
-  section { padding: 96px 0; }
-  .head { display: grid; gap: 14px; max-width: 760px; margin-bottom: 48px; }
-  .grid3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
-  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; display: grid; gap: 12px; align-content: start; }
-  .badge { width: 48px; height: 48px; border-radius: 14px; background: var(--accent-soft); display: grid; place-items: center; }
+  /* phone */
+  .phone { height: min(100%, 760px, calc(100svh - 128px)); aspect-ratio: 390 / 820; background: var(--ink); border-radius: 46px; padding: 12px; }
+  .screen { height: 100%; border-radius: 34px; overflow-y: auto; overflow-x: hidden; background: #f6f2ea; scrollbar-width: none; overscroll-behavior: contain; }
+  .screen::-webkit-scrollbar { display: none; }
+  .rest { width: 100%; height: auto; margin-top: -265.6%; } /* drops the screenshot's own nav and hero (top 1036 of 390 units) */
 
-  .gallery { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start; }
-  .scroller { height: 640px; overflow-y: auto; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); }
-  .scroller:focus-visible { outline-offset: 4px; }
-  .phone-frame { border: 10px solid var(--ink); border-radius: 40px; overflow: hidden; height: 640px; background: var(--ink); }
-  .phone-frame .scroller { height: 100%; border: 0; border-radius: 30px; }
-  .caption { font-size: 15px; color: var(--muted); margin-top: 10px; }
+  /* live hero rebuilt in HTML so it can take the visitor's words */
+  [data-ui] .t-nav { display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; background: #f6f2ea; }
+  [data-ui] .t-brand { display: flex; align-items: center; gap: 8px; font: 700 16px/1 Fraunces, serif; color: #141210; }
+  [data-ui] .t-mark { width: 24px; height: 24px; border-radius: 8px; background: #1f7a4d; }
+  [data-ui] .t-menu { width: 18px; height: 12px; border-top: 2px solid #141210; border-bottom: 2px solid #141210; }
+  [data-ui] .t-hero { padding: 12px 16px 18px; display: grid; gap: 12px; }
+  [data-ui] .t-badge { justify-self: start; background: #e3efe7; color: #1f7a4d; font: 600 11px/1 Inter, sans-serif; padding: 7px 10px; border-radius: 999px; }
+  [data-ui] .t-h { font: 700 22px/1.05 Fraunces, serif; letter-spacing: -0.02em; color: #141210; }
+  [data-ui] .t-p { font: 400 13px/1.45 Inter, sans-serif; color: #3b362f; }
+  [data-ui] .t-cta { display: grid; gap: 8px; }
+  [data-ui] .t-b1, [data-ui] .t-b2 { justify-self: start; font: 600 12px/1 Inter, sans-serif; padding: 12px 16px; border-radius: 999px; }
+  [data-ui] .t-b1 { background: #1f7a4d; color: #fff; }
+  [data-ui] .t-b2 { box-shadow: inset 0 0 0 1.5px #141210; color: #141210; }
+  [data-ui] .t-img { height: 170px; border-radius: 16px; background: url(img/phone-hero.jpg) center 86% / 100% auto no-repeat; }
 
-  .white { background: var(--surface); }
-  .soft { background: var(--accent-soft); }
+  /* hero sheet */
+  .hero { min-height: calc(100svh - 12px); display: grid; grid-template-rows: auto 1fr auto; text-align: center; }
+  .hero nav { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 16px; font-size: var(--sm); font-weight: 600; }
+  .hero nav a { text-decoration: none; }
+  .hero nav a:hover { color: var(--accent); }
+  .word { display: inline-flex; align-items: center; gap: 10px; font: 700 var(--md)/1 Fraunces, serif; letter-spacing: -0.01em; }
+  .word i { width: 30px; height: 30px; border-radius: 10px; background: var(--accent); display: inline-block; }
+  .hero-body { align-self: center; display: grid; justify-items: center; gap: 28px; padding: 48px 0; }
+  .hero h1 { font-size: var(--l); color: var(--accent); max-width: 14ch; }
+  .hero-body > p { font-size: var(--body); max-width: 36ch; color: var(--ink); }
+  .hero-actions { display: grid; justify-items: center; gap: 16px; }
+  .hero-note { font-size: var(--sm); color: var(--soft); }
 
-  .prices { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
-  .price-card { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 36px; display: grid; gap: 18px; align-content: start; }
-  .price-card.best { border: 2px solid var(--accent); }
-  .price { font: 700 56px/1 Fraunces, serif; color: var(--ink); font-variant-numeric: tabular-nums; }
-  .price s { font-size: 28px; color: var(--muted); font-weight: 600; margin-left: 8px; }
-  ul.checks { list-style: none; padding: 0; display: grid; gap: 10px; }
-  ul.checks li { display: flex; gap: 10px; align-items: start; }
-  ul.checks svg { flex: none; margin-top: 4px; }
+  /* showcase: the live thing */
+  .show { display: grid; gap: 28px; }
+  .show h2 { font-size: var(--l); }
+  .tabs { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+  .tabs button { background: none; border: 0; padding: 8px 0; font: 600 var(--body)/1 Inter, sans-serif; color: var(--soft); cursor: pointer; transition: color .2s; }
+  .tabs button[aria-pressed="true"] { color: var(--accent); text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 8px; }
+  .tabs button:hover { color: var(--ink); }
+  .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .fields label { display: grid; gap: 8px; font-size: var(--sm); font-weight: 600; }
+  .fields input { font: 400 var(--body)/1 Inter, sans-serif; color: var(--ink); background: var(--ground); border: 1.5px solid #8c857a; border-radius: 14px; padding: 15px 16px; min-height: 52px; width: 100%; }
+  .fields input:focus { border-color: var(--accent); outline: none; box-shadow: 0 0 0 3px rgba(31,122,77,.25); } /* taste-skill-ignore: form field focus ring */
+  .cells { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .cells .btn { width: 100%; min-height: 72px; border-radius: 16px; }
+  .guarantee { font-size: var(--sm); color: var(--soft); }
 
-  details { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px 26px; }
-  details + details { margin-top: 12px; }
-  summary { cursor: pointer; font-weight: 600; color: var(--ink); font-size: 19px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: "+"; color: var(--accent); font-size: 24px; line-height: 1; }
-  details[open] summary::after { content: "–"; }
-  details p { margin-top: 12px; }
-  .faq { max-width: 760px; margin: 0 auto; }
+  /* ---------- features: pinned heading, passing rows ---------- */
+  .features { background: var(--accent); color: var(--on-accent); margin-top: 12px; padding: 140px var(--m) 160px; }
+  .features-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; max-width: 1320px; margin: 0 auto; }
+  .features h2 { grid-column: 1 / 6; font-size: var(--xl); position: sticky; top: 40px; align-self: start; color: var(--on-accent); }
+  .rows { grid-column: 7 / 13; display: grid; gap: 88px; }
+  .row h3 { font-size: var(--md); font-family: Inter, sans-serif; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 24px; }
+  .row-body { display: grid; grid-template-columns: 200px 1fr; gap: 32px; align-items: start; }
+  .row:nth-child(even) .row-body { grid-template-columns: 1fr 200px; }
+  .row:nth-child(even) .crop { order: 2; }
+  .crop { width: 200px; aspect-ratio: 3 / 4; object-fit: cover; object-position: 50% var(--y, 0%); background: var(--ground); }
+  .row ul { list-style: none; padding: 0; display: grid; gap: 14px; }
+  .row li { font-size: var(--body); line-height: 1.4; }
 
-  footer { background: var(--ink); color: rgba(246,242,234,.75); padding: 48px 0; font-size: 15px; }
-  footer .wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
+  /* ---------- how it works: itinerary slip ---------- */
+  .how { background: var(--ink); color: var(--ground); padding: 160px var(--m) 120px; }
+  .how-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; max-width: 1320px; margin: 0 auto; align-items: start; }
+  .how-copy { grid-column: 1 / 6; display: grid; gap: 24px; }
+  .how h2 { font-size: var(--l); color: var(--ground); }
+  .how-copy p { max-width: 34ch; font-size: var(--body); color: #e9e3d8; }
+  .slip { grid-column: 7 / 12; background: var(--ground); color: var(--ink); padding: 40px 36px 72px; max-width: 480px; width: 100%;
+          clip-path: polygon(0 0, 100% 0, 100% calc(100% - 16px), 95% 100%, 90% calc(100% - 16px), 85% 100%, 80% calc(100% - 16px), 75% 100%, 70% calc(100% - 16px), 65% 100%, 60% calc(100% - 16px), 55% 100%, 50% calc(100% - 16px), 45% 100%, 40% calc(100% - 16px), 35% 100%, 30% calc(100% - 16px), 25% 100%, 20% calc(100% - 16px), 15% 100%, 10% calc(100% - 16px), 5% 100%, 0 calc(100% - 16px)); }
+  .slip .when { font-weight: 700; font-size: var(--body); margin-top: 28px; }
+  .slip .when:first-child { margin-top: 0; }
+  .slip ol { list-style: none; padding: 0; margin-top: 10px; display: grid; gap: 10px; }
+  .slip li { display: flex; align-items: baseline; gap: 10px; font-size: var(--sm); }
+  .slip li span:first-child { flex: none; max-width: 70%; }
+  .slip li .dots { flex: 1; height: 4px; align-self: center; background: radial-gradient(circle, var(--soft) 1.5px, transparent 2px) 0 50% / 9px 4px repeat-x; } /* taste-skill-ignore: dot leader, not a gradient */
+  .slip li time, .slip li b { flex: none; font-variant-numeric: tabular-nums; }
+  .slip .total { margin: 28px -36px 0; background: var(--ink); color: var(--ground); min-height: 44px; display: flex; align-items: center; justify-content: space-between; padding: 0 36px; font-weight: 600; font-size: var(--sm); }
 
-  @media (max-width: 860px) {
-    .nav nav { display: none; }
-    .gallery { grid-template-columns: 1fr; }
-    .scroller { height: 520px; }
-    section { padding: 72px 0; }
+  /* ---------- pricing: prices like a menu ---------- */
+  .pricing { padding: 160px var(--m); }
+  .pricing-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; max-width: 1320px; margin: 0 auto; }
+  .pricing-head { grid-column: 1 / 4; display: grid; gap: 24px; align-content: start; }
+  .pricing h2 { font-size: var(--l); }
+  .pricing-head img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: top; }
+  .menu { grid-column: 5 / 13; display: grid; grid-template-columns: 1fr 1fr; gap: 0 64px; align-content: start; }
+  .group h3 { font: 600 var(--md)/1.2 Inter, sans-serif; letter-spacing: -0.01em; margin: 48px 0 20px; }
+  .group:nth-child(-n+2) h3 { margin-top: 0; }
+  .item { margin-bottom: 22px; }
+  .item-line { display: flex; justify-content: space-between; gap: 16px; font-size: var(--body); font-weight: 600; font-variant-numeric: tabular-nums; }
+  .item p { font-size: var(--sm); color: var(--soft); max-width: 36ch; margin-top: 4px; }
+  .menu-actions { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; margin-top: 24px; }
+
+  /* ---------- faq: questions beside a tall picture ---------- */
+  .faq { background: var(--field); padding: 0 var(--m) 0; }
+  .faq-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; max-width: 1320px; margin: 0 auto; }
+  .faq-copy { grid-column: 1 / 6; padding: 140px 0 160px; display: grid; gap: 28px; align-content: start; }
+  .faq h2 { font-size: var(--l); }
+  .facts { list-style: none; padding: 0; display: grid; gap: 8px; font-size: var(--body); }
+  .qa { display: grid; gap: 28px; }
+  details summary { list-style: none; cursor: pointer; font-weight: 600; font-size: var(--body); display: flex; justify-content: space-between; gap: 16px; align-items: center; min-height: 44px; }
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after { content: ""; flex: none; width: 10px; height: 10px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(45deg); transition: transform .25s var(--ease); margin-right: 4px; }
+  details[open] summary::after { transform: rotate(225deg); }
+  details p { font-size: var(--body); color: var(--soft); margin-top: 10px; max-width: 46ch; }
+  .faq-art { grid-column: 7 / 13; position: relative; padding-bottom: 80px; }
+  .faq-art video { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: var(--ground); }
+  .faq-art img { position: absolute; width: 34%; aspect-ratio: 1; object-fit: cover; object-position: 50% 0%; right: -12px; bottom: 40px; background: var(--ground); }
+
+  /* ---------- cta ---------- */
+  .cta-img { width: 100%; height: 72svh; object-fit: cover; object-position: center 40%; }
+  .cta { background: var(--ink); color: var(--ground); padding: 88px var(--m) 112px; }
+  .cta-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 24px; max-width: 1320px; margin: 0 auto; align-items: end; }
+  .cta h2 { grid-column: 1 / 7; font-size: var(--xl); font-weight: 400; color: var(--ground); }
+  .cta-side { grid-column: 8 / 13; display: grid; gap: 24px; justify-items: start; }
+  .cta-side p { font-size: var(--body); color: #e9e3d8; }
+
+  footer { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: baseline; padding: 30svh var(--m) 30px; font-size: var(--sm); color: var(--soft); }
+  footer nav { display: flex; gap: 24px; }
+  footer a { color: var(--ink); text-decoration: none; }
+  footer a:hover { color: var(--accent); }
+  footer .end { justify-self: end; }
+
+  /* ---------- motion ---------- */
+  .rise { opacity: 0; transform: translateY(24px); transition: opacity .7s var(--ease), transform .7s var(--ease); transition-delay: calc(var(--i, 0) * 75ms); }
+  .rise.in { opacity: 1; transform: none; }
+  .no-js .rise { opacity: 1; transform: none; }
+  .crop { transition: transform .9s var(--ease); }
+  .row:hover .crop { transform: scale(1.03); }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    .rise { opacity: 1; transform: none; transition: none; }
+    .btn, .crop { transition: none; }
+  }
+
+  /* ---------- phone composition ---------- */
+  @media (max-width: 900px) {
+    .btn[aria-disabled="true"]::after { content: " · soon"; }
+    .stage { grid-template-columns: 1fr; padding: 12px var(--m) 0; }
+    .bar { display: none; }
+    .fixed { grid-template-rows: 1fr; }
+    .reading { display: contents; }
+    .hero { order: 0; min-height: auto; padding: 24px 20px 28px; }
+    .hero-body { padding: 36px 0 28px; gap: 22px; }
+    .fixed { order: 1; position: relative; top: 0; height: auto; }
+    .show { order: 2; padding: 28px 20px; }
+    .phone { height: auto; width: min(340px, 100%); }
+    .hero h1 { font-size: clamp(30px, 8.2vw, 48px); }
+    .hero-body > p { font-size: var(--body); }
+    .hero-actions .btn { width: 100%; }
+    .fields, .cells { grid-template-columns: 1fr; }
+    .cells .btn { min-height: 60px; }
+    .features { padding: 88px 16px 104px; }
+    .features-grid, .how-grid, .pricing-grid, .faq-grid, .cta-grid { grid-template-columns: 1fr; }
+    .features h2 { grid-column: auto; font-size: 12vw; position: static; }
+    .rows { grid-column: auto; gap: 72px; }
+    .row-body, .row:nth-child(even) .row-body { grid-template-columns: 1fr; gap: 20px; }
+    .row:nth-child(even) .crop { order: 0; }
+    .crop { width: min(240px, 70%); aspect-ratio: 3 / 4; }
+    .how, .pricing { padding: 96px 16px; }
+    .how-copy, .slip, .pricing-head, .menu, .faq-copy, .faq-art, .cta h2, .cta-side { grid-column: auto; }
+    .slip { max-width: none; padding: 32px 22px 64px; }
+    .slip .total { margin: 24px -22px 0; padding: 0 22px; }
+    .menu { grid-template-columns: 1fr; }
+    .group:nth-child(2) h3 { margin-top: 40px; }
+    .group h3 { margin-top: 40px; }
+    
+    .pricing-head img { width: 60%; }
+    .faq-art { order: -1; padding: 64px 0 40px; }
+    .faq-art video { aspect-ratio: 4 / 5; }
+    .faq-art img { width: 38%; right: -4px; bottom: 16px; }
+    .faq-copy { padding: 24px 0 96px; }
+    .cta-img { height: 60svh; }
+    .cta h2 { font-size: 40px; }
+    .cta-side .btn { width: 100%; }
+    footer { grid-template-columns: 1fr; gap: 8px; padding: 20svh 16px 24px; font-size: 14px; }
+    footer .end { justify-self: start; }
   }
 </style>
 </head>
-<body>
+<body class="no-js">
 <a class="skip" href="#main">Skip to content</a>
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="#top" aria-label="Callback home">
-      <span class="mark" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
-      Callback
-    </a>
-    <nav aria-label="Main">
-      <a href="#features">Features</a>
-      <a href="#preview">Preview</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#faq">FAQ</a>
-    </nav>
-    <a class="btn btn-primary btn-sm" href="#pricing">Get it for $29</a>
-  </div>
-</header>
-
 <main id="main">
-  <div class="hero" id="top">
-    <div class="wrap hero-grid">
-      <div class="hero-copy">
-        <p class="eyebrow">Framer template · Local service businesses</p>
-        <h1>A website that makes the phone ring.</h1>
-        <p class="lead">Callback is a ready-to-launch Framer site for cleaners, contractors, detailers and landscapers. Tap-to-call everywhere, a quote form one tap away, and reviews, prices and service area built in.</p>
-        <div class="actions">
-          <a class="btn btn-primary js-direct" href="#pricing">Buy direct · $29</a>
-          <a class="btn btn-secondary js-framer" href="#pricing">Get it on Framer · $39</a>
-          <span class="save">Save $10 buying direct</span>
+
+<div class="stage">
+  <div class="reading">
+    <header class="sheet hero">
+      <nav aria-label="Main">
+        <a href="#live" style="justify-self:end">Try it</a>
+        <a class="word" href="#main" aria-label="Callback home"><i aria-hidden="true"></i>Callback</a>
+        <a href="#pricing" style="justify-self:start">Pricing</a>
+      </nav>
+      <div class="hero-body">
+        <h1 class="rise">Websites that make the phone ring.</h1>
+        <p class="rise" style="--i:1">Callback is a Framer template for cleaners, contractors and other local service businesses. Tap-to-call everywhere and a quote form one tap away. $29 direct.</p>
+        <div class="hero-actions rise" style="--i:2">
+          <a class="btn js-direct" href="#pricing">Buy Callback for $29</a>
+          <a class="tlink js-framer" href="#pricing">or get it on the Framer Marketplace for $39</a>
         </div>
       </div>
-      <figure class="shot">
-        <img src="img/hero.jpg" width="1200" height="745" alt="Callback template hero: a large headline, quote and call buttons, a star rating and a photo of a bright living room.">
-      </figure>
-    </div>
+      <p class="hero-note">14-day fix-or-refund promise · One site per purchase · Edits on Framer’s free plan</p>
+    </header>
+
+    <section class="sheet show" id="live" aria-labelledby="live-h">
+      <h2 id="live-h" class="rise">See it with your name on it.</h2>
+      <p class="rise" style="--i:1">Pick a trade, type your business and city. The phone preview rewrites itself, the way your site will after ten minutes in Framer.</p>
+      <div class="tabs rise" style="--i:2" role="group" aria-label="Trade">
+        <button type="button" data-trade="clean" aria-pressed="true">Cleaning</button>
+        <button type="button" data-trade="build" aria-pressed="false">Contractor</button>
+        <button type="button" data-trade="detail" aria-pressed="false">Detailing</button>
+        <button type="button" data-trade="yard" aria-pressed="false">Landscaping</button>
+      </div>
+      <div class="fields rise" style="--i:3">
+        <label>Business name<input id="f-name" type="text" maxlength="24" placeholder="Finch & Co." autocomplete="organization"></label>
+        <label>City<input id="f-city" type="text" maxlength="18" placeholder="Phoenix" autocomplete="address-level2"></label>
+      </div>
+      <div class="cells rise" style="--i:4">
+        <a class="btn js-direct" href="#pricing">Buy direct · $29</a>
+        <a class="btn ink js-framer" href="#pricing">Framer · $39</a>
+      </div>
+      <p class="guarantee">If the remix link fails or the template isn’t as described, tell us within 14 days for a fix or a full refund.</p>
+    </section>
   </div>
 
-  <section id="features" class="white">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">What’s inside</p>
-        <h2>Every section exists to win the job.</h2>
-        <p class="lead">Built around how local customers actually decide: can I trust you, what will it cost, and how fast can I reach you.</p>
-      </div>
-      <div class="grid3">
-        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><h3>Tap-to-call everywhere</h3><p>Phone in the sticky header, hero and quote section, so a visitor is always one tap from calling.</p></div>
-        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span><h3>Quote form that converts</h3><p>Name, phone, service, ZIP and message, a consent checkbox, and sending, success and error states.</p></div>
-        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2L5.8 21 7 14.2 2 9.3l6.9-1z"/></svg></span><h3>Trust, up front</h3><p>Licensed-and-insured badge, guarantee strip, star rating and review cards, all easy to edit.</p></div>
-        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><h3>Prices people can see</h3><p>Service cards with “from” prices and a three-step “how it works” to remove doubt before the call.</p></div>
-        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></span><h3>Phone-first and accessible</h3><p>Desktop, tablet and phone layouts with a menu drawer. AA contrast, labeled fields and real buttons.</p></div>
-        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2a10 10 0 1 0 0 20c1 0 1.5-.8 1.5-1.6 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.6 1.6-1.6H16a6 6 0 0 0 6-6c0-4.9-4.5-8.6-10-8.6z"/></svg></span><h3>Rebrand in minutes</h3><p>Shared color and text styles, components for buttons, nav and FAQ, plus Privacy and Terms page starters.</p></div>
-      </div>
-    </div>
-  </section>
-
-  <section id="preview">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">Preview</p>
-        <h2>Scroll the whole template.</h2>
-        <p class="lead">This is the full home page as it ships, shown with a fictional cleaning company. Scroll inside each frame.</p>
-      </div>
-      <div class="gallery">
-        <figure>
-          <div class="scroller" tabindex="0" role="region" aria-label="Desktop preview of the full template, scrollable">
-            <img src="img/desktop.jpg" width="1200" height="5524" loading="lazy" alt="Full desktop page: hero, trust strip, service cards with prices, three steps, reviews, service area, FAQ, quote form and footer.">
-          </div>
-          <figcaption class="caption">Desktop</figcaption>
-        </figure>
-        <figure>
-          <div class="phone-frame">
-            <div class="scroller" tabindex="0" role="region" aria-label="Phone preview of the full template, scrollable">
-              <img src="img/phone.jpg" width="390" height="8152" loading="lazy" alt="Full phone layout with stacked sections and a menu button in the header.">
+  <aside class="fixed" aria-label="Live preview of the Callback template on a phone">
+    <div class="fixed-art">
+      <div class="phone">
+        <div class="screen" id="screen" tabindex="0" aria-label="Template preview, scrollable">
+          <div data-ui>
+            <div class="t-nav"><span class="t-brand"><span class="t-mark"></span><span id="p-name">Finch &amp; Co.</span></span><span class="t-menu" aria-hidden="true"></span></div>
+            <div class="t-hero">
+              <span class="t-badge">Licensed, insured &amp; locally owned</span>
+              <p class="t-h" id="p-head">Spotless homes in Phoenix, booked in 60 seconds.</p>
+              <p class="t-p" id="p-sub">Weekly, deep and move-out cleaning by a vetted local crew. Get a fixed price today.</p>
+              <div class="t-cta"><span class="t-b1">Get a free quote</span><span class="t-b2">Call (555) 010-2030</span></div>
+              <div class="t-img" role="img" aria-label="Template photo slot"></div>
             </div>
           </div>
-          <figcaption class="caption">Phone</figcaption>
-        </figure>
-      </div>
-      <div class="grid3" style="margin-top:24px">
-        <figure class="shot"><img src="img/services.jpg" width="1200" height="722" loading="lazy" alt="Service cards: standard, deep and move-out clean with from-prices and book links."></figure>
-        <figure class="shot"><img src="img/reviews.jpg" width="1200" height="599" loading="lazy" alt="Three review cards with star ratings, quotes and customer neighborhoods."></figure>
-        <figure class="shot"><img src="img/quote.jpg" width="1200" height="878" loading="lazy" alt="Quote section with a dark background and a white form card."></figure>
-      </div>
-    </div>
-  </section>
-
-  <section id="pricing" class="soft">
-    <div class="wrap">
-      <div class="head">
-        <p class="eyebrow">Pricing</p>
-        <h2>Same template. Two ways to get it.</h2>
-        <p class="lead">Buy direct and save $10, or get it through the Framer Marketplace for instant checkout inside Framer.</p>
-      </div>
-      <div class="prices">
-        <div class="price-card best">
-          <span class="save" style="justify-self:start">Best price</span>
-          <h3>Buy direct</h3>
-          <p class="price">$29<s aria-label="regular price 39 dollars">$39</s></p>
-          <ul class="checks">
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Pay securely with PayPal or card</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Framer remix link delivered to your email within 24 hours</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Same files and future fixes as the Marketplace version</li>
-          </ul>
-          <a class="btn btn-primary js-direct" href="#pricing">Buy direct for $29</a>
-          <p class="muted js-direct-note" style="font-size:15px">Add the email you want the remix link sent to in your PayPal note.</p>
-        </div>
-        <div class="price-card">
-          <h3>Framer Marketplace</h3>
-          <p class="price">$39</p>
-          <ul class="checks">
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Checkout inside Framer</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Instant remix into your account</li>
-            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Updates through Framer</li>
-          </ul>
-          <a class="btn btn-secondary js-framer" href="#pricing">View on Framer</a>
-          <p class="muted js-framer-note" style="font-size:15px"></p>
+          <img class="rest" src="img/phone.jpg" width="390" height="8152" alt="The rest of the template on a phone: trust strip, services with prices, three steps, reviews, service area, FAQ, quote form and footer.">
         </div>
       </div>
     </div>
-  </section>
+    <div class="bar"><span>Live preview</span><span>Scroll inside the phone</span></div>
+  </aside>
+</div>
 
-  <section id="faq" class="white">
-    <div class="wrap">
-      <div class="head" style="margin-left:auto;margin-right:auto;text-align:center"><p class="eyebrow">FAQ</p><h2>Before you buy</h2></div>
-      <div class="faq">
-        <details><summary>Do I need a paid Framer plan?</summary><p>You can remix and edit the template on Framer’s free plan. To publish on your own domain you’ll need a Framer site plan.</p></details>
-        <details><summary>Which businesses is it for?</summary><p>Any local service business that wins work by phone or quote request: cleaning, landscaping, pest control, handymen, detailing, moving and more. Swap the copy, photos and colors.</p></details>
-        <details><summary>What can I use it for?</summary><p>One website per purchase, for yourself or one client. You can’t resell or redistribute the template itself.</p></details>
-        <details><summary>Where do form submissions go?</summary><p>You choose in Framer’s form settings: an email address or a webhook to your CRM.</p></details>
-        <details><summary>Is the legal text ready to use?</summary><p>No. The Privacy and Terms pages are starters to adapt. They are not legal advice, so have them reviewed for your business.</p></details>
-        <details><summary>What if something doesn’t work?</summary><p>If your remix link doesn’t work or the template isn’t as described, ask within 14 days for a fix or a full refund.</p></details>
+<section class="features" id="inside" aria-labelledby="inside-h">
+  <div class="features-grid">
+    <h2 id="inside-h">Built to book jobs.</h2>
+    <div class="rows">
+      <article class="row rise">
+        <h3>A phone number that never leaves the screen</h3>
+        <div class="row-body">
+          <img class="crop" src="img/phone-hero.jpg" width="390" height="960" loading="lazy" alt="Phone view of the template hero with call and quote buttons.">
+          <ul><li class="rise" style="--i:1">Tap-to-call in the sticky header</li><li class="rise" style="--i:2">A call button beside the hero headline</li><li class="rise" style="--i:3">A large number in the quote section</li><li class="rise" style="--i:4">A phone menu that keeps the call in reach</li></ul>
+        </div>
+      </article>
+      <article class="row rise">
+        <h3>A quote form people finish</h3>
+        <div class="row-body">
+          <img class="crop" src="img/phone.jpg" width="390" height="8152" loading="lazy" style="--y:84%" alt="Phone view of the quote form with name, phone, service and ZIP fields.">
+          <ul><li class="rise" style="--i:0">Name, phone, service, ZIP and message</li><li class="rise" style="--i:1">Contact consent checkbox built in</li><li class="rise" style="--i:2">Sending, thank-you and error states</li><li class="rise" style="--i:3">Send to email or a webhook to your CRM</li></ul>
+        </div>
+      </article>
+      <article class="row rise">
+        <h3>Prices and proof, up front</h3>
+        <div class="row-body">
+          <img class="crop" src="img/phone.jpg" width="390" height="8152" loading="lazy" style="--y:19%" alt="Phone view of service cards with from-prices.">
+          <ul><li class="rise" style="--i:4">Service cards with “from” prices</li><li class="rise" style="--i:0">Licensed, insured and guarantee strip</li><li class="rise" style="--i:1">Review cards and a star rating line</li><li class="rise" style="--i:2">Service-area chips for every suburb</li></ul>
+        </div>
+      </article>
+      <article class="row rise">
+        <h3>Yours in an afternoon</h3>
+        <div class="row-body">
+          <img class="crop" src="img/phone.jpg" width="390" height="8152" loading="lazy" style="--y:46%" alt="Phone view of review cards with star ratings.">
+          <ul><li class="rise" style="--i:3">Colour and text styles: rebrand once, everywhere</li><li class="rise" style="--i:4">Components for buttons, menu and FAQ</li><li class="rise" style="--i:0">Desktop, tablet and phone layouts done</li><li class="rise" style="--i:1">Privacy and Terms page starters</li></ul>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="how" id="how" aria-labelledby="how-h">
+  <div class="how-grid">
+    <div class="how-copy rise">
+      <h2 id="how-h">From checkout to live.</h2>
+      <p>No code, no developer. Here is the whole job, with honest times for someone new to Framer.</p>
+    </div>
+    <div class="slip rise" style="--i:1" role="group" aria-label="Setup steps and times">
+      <p class="when">Today</p>
+      <ol>
+        <li><span>Buy and open the remix link</span><span class="dots"></span><time>2 min</time></li>
+        <li><span>Change name, phone and colours</span><span class="dots"></span><time>20 min</time></li>
+      </ol>
+      <p class="when">This afternoon</p>
+      <ol>
+        <li><span>Swap in your photos and prices</span><span class="dots"></span><time>30 min</time></li>
+        <li><span>Edit reviews, areas and FAQ</span><span class="dots"></span><time>15 min</time></li>
+        <li><span>Point the quote form at your inbox</span><span class="dots"></span><time>5 min</time></li>
+      </ol>
+      <p class="when">When you’re ready</p>
+      <ol>
+        <li><span>Connect your domain and publish</span><span class="dots"></span><time>15 min</time></li>
+      </ol>
+      <p class="total"><span>A live site that takes calls</span><b>about 90 min</b></p>
+    </div>
+  </div>
+</section>
+
+<section class="pricing" id="pricing" aria-labelledby="pricing-h">
+  <div class="pricing-grid">
+    <div class="pricing-head rise">
+      <h2 id="pricing-h">One price. No plan.</h2>
+      <img src="img/phone-hero.jpg" width="390" height="960" loading="lazy" alt="Phone view of the template hero.">
+    </div>
+    <div class="menu rise" style="--i:1">
+      <div class="group rise">
+        <h3>The template</h3>
+        <div class="item"><div class="item-line"><span>Callback, direct</span><span>$29</span></div><p>Paid with PayPal. Remix link emailed to you within 24 hours.</p></div>
+        <div class="item"><div class="item-line"><span>Callback on Framer</span><span>$39</span></div><p>Framer’s own checkout, instant remix into your account.</p></div>
+      </div>
+      <div class="group rise">
+        <h3>What Framer charges</h3>
+        <div class="item"><div class="item-line"><span>Editing and preview</span><span>$0</span></div><p>Framer’s free plan is enough to make it yours.</p></div>
+        <div class="item"><div class="item-line"><span>Your own domain</span><span>Framer’s rate</span></div><p>A Framer site plan, paid to Framer, when you go live.</p></div>
+      </div>
+      <div class="group rise">
+        <h3>Included</h3>
+        <div class="item"><div class="item-line"><span>Fixes to the template</span><span>Free</span></div><p>Updates if something in Callback breaks.</p></div>
+      </div>
+      <div class="group rise">
+        <h3>The promise</h3>
+        <div class="item"><div class="item-line"><span>Fix or refund</span><span>14 days</span></div><p>If the link fails or it isn’t as described.</p></div>
+      </div>
+      <div class="menu-actions">
+        <a class="btn js-direct" href="#pricing">Buy Callback for $29</a>
+        <a class="tlink js-framer" href="#pricing">or $39 on the Framer Marketplace</a>
+      </div>
+      <p class="js-status" style="grid-column:1/-1;font-size:15px;color:var(--soft);margin-top:12px"></p>
+    </div>
+  </div>
+</section>
+
+<section class="faq" id="faq" aria-labelledby="faq-h">
+  <div class="faq-grid">
+    <div class="faq-copy">
+      <h2 id="faq-h" class="rise">Before you buy.</h2>
+      <ul class="facts rise" style="--i:1">
+        <li>Built and sold by Callback Templates</li>
+        <li>For Framer, edited in your browser</li>
+        <li>One website per purchase</li>
+      </ul>
+      <div class="qa rise" style="--i:2">
+        <details class="rise"><summary>Do I need to know design or code?</summary><p>No. You click text to edit it, drag in photos, and change colours once in the style panel. If you can edit a slide deck, you can edit this.</p></details>
+        <details class="rise"><summary>Will it fit my trade?</summary><p>It ships as a cleaning company, but every section is written for any business that wins work by phone or quote: contractors, landscapers, detailers, pest control, movers.</p></details>
+        <details class="rise"><summary>Where do quote requests go?</summary><p>Wherever you set them in Framer’s form settings: your email, or a webhook into your CRM or a spreadsheet.</p></details>
+        <details class="rise"><summary>Can I build sites for clients with it?</summary><p>Yes, one client site per purchase. Buy again for each new client. You can’t resell the template itself.</p></details>
+        <details class="rise"><summary>Is the legal text ready to use?</summary><p>No. The Privacy and Terms pages are starters. They aren’t legal advice, so adapt them and have them checked for your business.</p></details>
+        <details class="rise"><summary>Why is it cheaper here?</summary><p>Buying direct skips the marketplace. You get the same template; delivery is a remix link by email instead of instant.</p></details>
+      </div>
+      <div class="hero-actions rise" style="justify-items:start;--i:3">
+        <a class="btn js-direct" href="#pricing">Buy Callback for $29</a>
       </div>
     </div>
-  </section>
+    <div class="faq-art rise" style="--i:1">
+      <video src="media/scroll-desktop.mp4" poster="media/scroll-desktop-poster.jpg" muted loop playsinline autoplay preload="metadata" aria-label="Video: scrolling through the full desktop template"></video>
+      <img src="img/quote.jpg" width="1200" height="878" loading="lazy" alt="Quote section of the template.">
+    </div>
+  </div>
+</section>
+
+<img class="cta-img" src="img/hero.jpg" width="1200" height="745" loading="lazy" alt="The template’s hero on desktop: headline, quote and call buttons, and a bright living room.">
+<section class="cta" aria-labelledby="cta-h">
+  <div class="cta-grid">
+    <h2 id="cta-h">Your next call starts here.</h2>
+    <div class="cta-side">
+      <p>Buy Callback for $29, make it yours this afternoon, and give customers one tap to reach you.</p>
+      <a class="btn paper js-direct" href="#pricing">Buy Callback for $29</a>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
-  <div class="wrap">
-    <span>© 2026 Callback Templates</span>
-    <span>Demo content uses a fictional business and Unsplash photos.</span>
-  </div>
+  <span>Callback, a Framer template</span>
+  <nav aria-label="Footer"><a href="#live">Try it</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+  <span class="end">© 2026 Callback Templates · Demo uses a fictional business and Unsplash photos</span>
 </footer>
 
 <script>
-  // Checkout links: fill these in, then every buy button on the page goes live.
+  document.body.classList.remove("no-js");
+
+  // Checkout links. Fill these in and every buy button on the page goes live.
   const LINKS = {
     direct: "",  // e.g. "https://www.paypal.me/yourname/29USD"
     framer: ""   // the template's Framer Marketplace URL, once approved
   };
-  const wire = (cls, url, pending) => {
-    document.querySelectorAll(cls).forEach(a => {
-      if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
-      else { a.setAttribute("aria-disabled", "true"); a.addEventListener("click", e => e.preventDefault()); a.title = pending; }
-    });
+  const wire = (sel, url) => document.querySelectorAll(sel).forEach(a => {
+    if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+    else { a.setAttribute("aria-disabled", "true"); a.addEventListener("click", e => e.preventDefault()); }
+  });
+  wire(".js-direct", LINKS.direct);
+  wire(".js-framer", LINKS.framer);
+  const st = document.querySelector(".js-status");
+  if (st && (!LINKS.direct || !LINKS.framer)) st.textContent = !LINKS.direct && !LINKS.framer
+    ? "Checkout opens soon. The Marketplace listing is in Framer’s review."
+    : !LINKS.direct ? "Direct checkout opens soon." : "The Marketplace listing is in Framer’s review.";
+
+  // The live thing: the visitor's trade, name and city rewrite the phone's hero.
+  const TRADES = {
+    clean:  { h: c => `Spotless homes in ${c}, booked in 60 seconds.`, s: "Weekly, deep and move-out cleaning by a vetted local crew. Get a fixed price today.", b: "Licensed, insured & locally owned" },
+    build:  { h: c => `Repairs in ${c}, quoted in 24 hours.`, s: "Kitchens, decks and fixes by a licensed local crew. A fixed quote before we start.", b: "Licensed, bonded & insured" },
+    detail: { h: c => `Showroom shine in ${c}, at your door.`, s: "Mobile interior and exterior detailing. Book a slot online in under a minute.", b: "Fully mobile · Eco products" },
+    yard:   { h: c => `Greener yards in ${c}, every week.`, s: "Mowing, trimming and seasonal cleanups by a reliable local team. Fixed monthly price.", b: "Locally owned · Insured" }
   };
-  wire(".js-direct", LINKS.direct, "Direct checkout opens soon");
-  wire(".js-framer", LINKS.framer, "Marketplace listing is in review");
-  if (!LINKS.direct) document.querySelectorAll(".js-direct-note").forEach(p => p.textContent = "Direct checkout opens soon.");
-  if (!LINKS.framer) document.querySelectorAll(".js-framer-note").forEach(p => p.textContent = "Listing is in Framer’s review. Link coming soon.");
+  let trade = "clean";
+  const $ = id => document.getElementById(id);
+  const render = () => {
+    const name = $("f-name").value.trim() || "Finch & Co.";
+    const city = $("f-city").value.trim() || "Phoenix";
+    const t = TRADES[trade];
+    $("p-name").textContent = name;
+    $("p-head").textContent = t.h(city);
+    $("p-sub").textContent = t.s;
+    document.querySelector("[data-ui] .t-badge").textContent = t.b;
+  };
+  document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => {
+    trade = b.dataset.trade;
+    document.querySelectorAll(".tabs button").forEach(x => x.setAttribute("aria-pressed", String(x === b)));
+    render();
+    $("screen").scrollTo({ top: 0, behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  }));
+  ["f-name", "f-city"].forEach(id => $(id).addEventListener("input", render));
+
+  // Entrances.
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { threshold: 0.15 });
+  document.querySelectorAll(".rise").forEach(el => io.observe(el));
+
+  // Signature move: while you read, the phone slowly tours the template, holding on each part.
+  const screen = $("screen");
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const tour = [0, 0.1, 0.24, 0.42, 0.6, 0.8];
+  let step = 0, paused = false, idle;
+  const hold = () => { paused = true; clearTimeout(idle); idle = setTimeout(() => paused = false, 12000); };
+  ["pointerdown", "wheel", "touchstart", "keydown"].forEach(ev => screen.addEventListener(ev, hold, { passive: true }));
+  document.querySelectorAll(".show input, .tabs button").forEach(el => el.addEventListener("focus", hold));
+  if (!reduce) setInterval(() => {
+    if (paused || document.hidden) return;
+    step = (step + 1) % tour.length;
+    screen.scrollTo({ top: tour[step] * (screen.scrollHeight - screen.clientHeight), behavior: "smooth" });
+  }, 5500);
+
+  // Pause the video when hidden or under reduced motion.
+  const v = document.querySelector(".faq-art video");
+  if (reduce) { v.removeAttribute("autoplay"); v.pause(); }
+  document.addEventListener("visibilitychange", () => { if (document.hidden) v.pause(); else if (!reduce) v.play().catch(() => {}); });
 </script>
 </body>
 </html>
