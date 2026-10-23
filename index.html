@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Callback — Framer Template for Local Service Businesses</title>
+<meta name="description" content="A Framer template for cleaners, contractors and local service businesses, built to make the phone ring. $29 direct or $39 on the Framer Marketplace.">
+<meta property="og:title" content="Callback — Framer template for local service businesses">
+<meta property="og:description" content="Tap-to-call everywhere, a quote form one tap away, reviews and service area built in. $29 direct.">
+<meta property="og:image" content="img/hero.jpg">
+<meta property="og:type" content="product">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #141210; --paper: #f6f2ea; --surface: #ffffff; --body: #3b362f; --muted: #5f584e;
+    --accent: #1f7a4d; --accent-soft: #e3efe7; --line: rgba(20, 18, 16, 0.12);
+    --radius: 24px; --wrap: 1120px;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body { background: var(--paper); color: var(--body); font: 400 18px/1.55 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; height: auto; }
+  a { color: inherit; }
+  .wrap { width: var(--wrap); max-width: 100%; margin: 0 auto; padding: 0 24px; }
+  h1, h2 { font-family: Fraunces, Georgia, serif; color: var(--ink); font-weight: 700; letter-spacing: -0.02em; text-wrap: balance; }
+  h1 { font-size: clamp(40px, 7vw, 72px); line-height: 1; }
+  h2 { font-size: clamp(32px, 5vw, 48px); line-height: 1.05; }
+  h3 { color: var(--ink); font-size: 20px; line-height: 1.3; font-weight: 600; }
+  .eyebrow { color: var(--accent); font-size: 14px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; }
+  .lead { font-size: 20px; text-wrap: pretty; }
+  .muted { color: var(--muted); }
+
+  .skip { position: absolute; left: -9999px; }
+  .skip:focus { left: 16px; top: 16px; background: var(--ink); color: var(--paper); padding: 10px 16px; border-radius: 8px; z-index: 10; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+
+  header { position: sticky; top: 0; z-index: 5; background: var(--paper); border-bottom: 1px solid var(--line); }
+  .nav { display: flex; align-items: center; justify-content: space-between; height: 68px; }
+  .brand { display: flex; align-items: center; gap: 10px; font: 700 22px/1 Fraunces, serif; color: var(--ink); text-decoration: none; }
+  .mark { width: 32px; height: 32px; border-radius: 10px; background: var(--accent); display: grid; place-items: center; }
+  .nav nav { display: flex; gap: 28px; font-weight: 500; font-size: 16px; }
+  .nav nav a { text-decoration: none; color: var(--body); }
+  .nav nav a:hover { color: var(--accent); }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 52px; padding: 0 24px; border-radius: 999px;
+         font: 600 17px/1 Inter, sans-serif; text-decoration: none; border: 1.5px solid transparent; cursor: pointer; transition: opacity .2s, transform .15s; }
+  .btn:hover { opacity: .88; }
+  .btn:active { transform: scale(.97); }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-secondary { background: transparent; color: var(--ink); border-color: var(--ink); }
+  .btn[aria-disabled="true"] { opacity: .55; cursor: not-allowed; }
+  .btn-sm { min-height: 44px; padding: 0 18px; font-size: 15px; }
+
+  .hero { padding: 72px 0 40px; }
+  .hero-grid { display: grid; grid-template-columns: 1fr; gap: 40px; }
+  .hero-copy { display: grid; gap: 24px; max-width: 760px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .save { display: inline-block; background: var(--accent-soft); color: var(--accent); font-weight: 600; font-size: 15px; padding: 6px 12px; border-radius: 999px; }
+  .shot { border-radius: 20px; overflow: hidden; border: 1px solid var(--line); background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.06); }
+
+  section { padding: 96px 0; }
+  .head { display: grid; gap: 14px; max-width: 760px; margin-bottom: 48px; }
+  .grid3 { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 24px; }
+  .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 32px; display: grid; gap: 12px; align-content: start; }
+  .badge { width: 48px; height: 48px; border-radius: 14px; background: var(--accent-soft); display: grid; place-items: center; }
+
+  .gallery { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; align-items: start; }
+  .scroller { height: 640px; overflow-y: auto; border-radius: 20px; border: 1px solid var(--line); background: var(--surface); }
+  .scroller:focus-visible { outline-offset: 4px; }
+  .phone-frame { border: 10px solid var(--ink); border-radius: 40px; overflow: hidden; height: 640px; background: var(--ink); }
+  .phone-frame .scroller { height: 100%; border: 0; border-radius: 30px; }
+  .caption { font-size: 15px; color: var(--muted); margin-top: 10px; }
+
+  .white { background: var(--surface); }
+  .soft { background: var(--accent-soft); }
+
+  .prices { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+  .price-card { background: var(--surface); border: 1px solid var(--line); border-radius: 28px; padding: 36px; display: grid; gap: 18px; align-content: start; }
+  .price-card.best { border: 2px solid var(--accent); }
+  .price { font: 700 56px/1 Fraunces, serif; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .price s { font-size: 28px; color: var(--muted); font-weight: 600; margin-left: 8px; }
+  ul.checks { list-style: none; padding: 0; display: grid; gap: 10px; }
+  ul.checks li { display: flex; gap: 10px; align-items: start; }
+  ul.checks svg { flex: none; margin-top: 4px; }
+
+  details { background: var(--surface); border: 1px solid var(--line); border-radius: 20px; padding: 22px 26px; }
+  details + details { margin-top: 12px; }
+  summary { cursor: pointer; font-weight: 600; color: var(--ink); font-size: 19px; list-style: none; display: flex; justify-content: space-between; gap: 16px; }
+  summary::-webkit-details-marker { display: none; }
+  summary::after { content: "+"; color: var(--accent); font-size: 24px; line-height: 1; }
+  details[open] summary::after { content: "–"; }
+  details p { margin-top: 12px; }
+  .faq { max-width: 760px; margin: 0 auto; }
+
+  footer { background: var(--ink); color: rgba(246,242,234,.75); padding: 48px 0; font-size: 15px; }
+  footer .wrap { display: flex; flex-wrap: wrap; gap: 16px; justify-content: space-between; }
+
+  @media (max-width: 860px) {
+    .nav nav { display: none; }
+    .gallery { grid-template-columns: 1fr; }
+    .scroller { height: 520px; }
+    section { padding: 72px 0; }
+  }
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header>
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="Callback home">
+      <span class="mark" aria-hidden="true"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span>
+      Callback
+    </a>
+    <nav aria-label="Main">
+      <a href="#features">Features</a>
+      <a href="#preview">Preview</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="#pricing">Get it for $29</a>
+  </div>
+</header>
+
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Framer template · Local service businesses</p>
+        <h1>A website that makes the phone ring.</h1>
+        <p class="lead">Callback is a ready-to-launch Framer site for cleaners, contractors, detailers and landscapers. Tap-to-call everywhere, a quote form one tap away, and reviews, prices and service area built in.</p>
+        <div class="actions">
+          <a class="btn btn-primary js-direct" href="#pricing">Buy direct · $29</a>
+          <a class="btn btn-secondary js-framer" href="#pricing">Get it on Framer · $39</a>
+          <span class="save">Save $10 buying direct</span>
+        </div>
+      </div>
+      <figure class="shot">
+        <img src="img/hero.jpg" width="1200" height="745" alt="Callback template hero: a large headline, quote and call buttons, a star rating and a photo of a bright living room.">
+      </figure>
+    </div>
+  </div>
+
+  <section id="features" class="white">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">What’s inside</p>
+        <h2>Every section exists to win the job.</h2>
+        <p class="lead">Built around how local customers actually decide: can I trust you, what will it cost, and how fast can I reach you.</p>
+      </div>
+      <div class="grid3">
+        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg></span><h3>Tap-to-call everywhere</h3><p>Phone in the sticky header, hero and quote section, so a visitor is always one tap from calling.</p></div>
+        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h3"/></svg></span><h3>Quote form that converts</h3><p>Name, phone, service, ZIP and message, a consent checkbox, and sending, success and error states.</p></div>
+        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.2L5.8 21 7 14.2 2 9.3l6.9-1z"/></svg></span><h3>Trust, up front</h3><p>Licensed-and-insured badge, guarantee strip, star rating and review cards, all easy to edit.</p></div>
+        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><h3>Prices people can see</h3><p>Service cards with “from” prices and a three-step “how it works” to remove doubt before the call.</p></div>
+        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2"/><path d="M11 18h2"/></svg></span><h3>Phone-first and accessible</h3><p>Desktop, tablet and phone layouts with a menu drawer. AA contrast, labeled fields and real buttons.</p></div>
+        <div class="card"><span class="badge" aria-hidden="true"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="13.5" cy="6.5" r="2.5"/><circle cx="17.5" cy="10.5" r="2.5"/><circle cx="8.5" cy="7.5" r="2.5"/><circle cx="6.5" cy="12.5" r="2.5"/><path d="M12 2a10 10 0 1 0 0 20c1 0 1.5-.8 1.5-1.6 0-.4-.2-.8-.4-1.1-.3-.3-.4-.7-.4-1.1 0-.9.7-1.6 1.6-1.6H16a6 6 0 0 0 6-6c0-4.9-4.5-8.6-10-8.6z"/></svg></span><h3>Rebrand in minutes</h3><p>Shared color and text styles, components for buttons, nav and FAQ, plus Privacy and Terms page starters.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="preview">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Preview</p>
+        <h2>Scroll the whole template.</h2>
+        <p class="lead">This is the full home page as it ships, shown with a fictional cleaning company. Scroll inside each frame.</p>
+      </div>
+      <div class="gallery">
+        <figure>
+          <div class="scroller" tabindex="0" role="region" aria-label="Desktop preview of the full template, scrollable">
+            <img src="img/desktop.jpg" width="1200" height="5524" loading="lazy" alt="Full desktop page: hero, trust strip, service cards with prices, three steps, reviews, service area, FAQ, quote form and footer.">
+          </div>
+          <figcaption class="caption">Desktop</figcaption>
+        </figure>
+        <figure>
+          <div class="phone-frame">
+            <div class="scroller" tabindex="0" role="region" aria-label="Phone preview of the full template, scrollable">
+              <img src="img/phone.jpg" width="390" height="8152" loading="lazy" alt="Full phone layout with stacked sections and a menu button in the header.">
+            </div>
+          </div>
+          <figcaption class="caption">Phone</figcaption>
+        </figure>
+      </div>
+      <div class="grid3" style="margin-top:24px">
+        <figure class="shot"><img src="img/services.jpg" width="1200" height="722" loading="lazy" alt="Service cards: standard, deep and move-out clean with from-prices and book links."></figure>
+        <figure class="shot"><img src="img/reviews.jpg" width="1200" height="599" loading="lazy" alt="Three review cards with star ratings, quotes and customer neighborhoods."></figure>
+        <figure class="shot"><img src="img/quote.jpg" width="1200" height="878" loading="lazy" alt="Quote section with a dark background and a white form card."></figure>
+      </div>
+    </div>
+  </section>
+
+  <section id="pricing" class="soft">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">Pricing</p>
+        <h2>Same template. Two ways to get it.</h2>
+        <p class="lead">Buy direct and save $10, or get it through the Framer Marketplace for instant checkout inside Framer.</p>
+      </div>
+      <div class="prices">
+        <div class="price-card best">
+          <span class="save" style="justify-self:start">Best price</span>
+          <h3>Buy direct</h3>
+          <p class="price">$29<s aria-label="regular price 39 dollars">$39</s></p>
+          <ul class="checks">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Pay securely with PayPal or card</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Framer remix link delivered to your email within 24 hours</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Same files and future fixes as the Marketplace version</li>
+          </ul>
+          <a class="btn btn-primary js-direct" href="#pricing">Buy direct for $29</a>
+          <p class="muted js-direct-note" style="font-size:15px">Add the email you want the remix link sent to in your PayPal note.</p>
+        </div>
+        <div class="price-card">
+          <h3>Framer Marketplace</h3>
+          <p class="price">$39</p>
+          <ul class="checks">
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Checkout inside Framer</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Instant remix into your account</li>
+            <li><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#1f7a4d" stroke-width="3" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>Updates through Framer</li>
+          </ul>
+          <a class="btn btn-secondary js-framer" href="#pricing">View on Framer</a>
+          <p class="muted js-framer-note" style="font-size:15px"></p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq" class="white">
+    <div class="wrap">
+      <div class="head" style="margin-left:auto;margin-right:auto;text-align:center"><p class="eyebrow">FAQ</p><h2>Before you buy</h2></div>
+      <div class="faq">
+        <details><summary>Do I need a paid Framer plan?</summary><p>You can remix and edit the template on Framer’s free plan. To publish on your own domain you’ll need a Framer site plan.</p></details>
+        <details><summary>Which businesses is it for?</summary><p>Any local service business that wins work by phone or quote request: cleaning, landscaping, pest control, handymen, detailing, moving and more. Swap the copy, photos and colors.</p></details>
+        <details><summary>What can I use it for?</summary><p>One website per purchase, for yourself or one client. You can’t resell or redistribute the template itself.</p></details>
+        <details><summary>Where do form submissions go?</summary><p>You choose in Framer’s form settings: an email address or a webhook to your CRM.</p></details>
+        <details><summary>Is the legal text ready to use?</summary><p>No. The Privacy and Terms pages are starters to adapt. They are not legal advice, so have them reviewed for your business.</p></details>
+        <details><summary>What if something doesn’t work?</summary><p>If your remix link doesn’t work or the template isn’t as described, ask within 14 days for a fix or a full refund.</p></details>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Callback Templates</span>
+    <span>Demo content uses a fictional business and Unsplash photos.</span>
+  </div>
+</footer>
+
+<script>
+  // Checkout links: fill these in, then every buy button on the page goes live.
+  const LINKS = {
+    direct: "",  // e.g. "https://www.paypal.me/yourname/29USD"
+    framer: ""   // the template's Framer Marketplace URL, once approved
+  };
+  const wire = (cls, url, pending) => {
+    document.querySelectorAll(cls).forEach(a => {
+      if (url) { a.href = url; a.target = "_blank"; a.rel = "noopener"; }
+      else { a.setAttribute("aria-disabled", "true"); a.addEventListener("click", e => e.preventDefault()); a.title = pending; }
+    });
+  };
+  wire(".js-direct", LINKS.direct, "Direct checkout opens soon");
+  wire(".js-framer", LINKS.framer, "Marketplace listing is in review");
+  if (!LINKS.direct) document.querySelectorAll(".js-direct-note").forEach(p => p.textContent = "Direct checkout opens soon.");
+  if (!LINKS.framer) document.querySelectorAll(".js-framer-note").forEach(p => p.textContent = "Listing is in Framer’s review. Link coming soon.");
+</script>
+</body>
+</html>
