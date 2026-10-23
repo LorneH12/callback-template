@@ -93,12 +93,20 @@ def stitch(name, parts):
     return out
 
 
-END = ("Callback", "A Framer website template for local service businesses. $29.", "Link in bio · I built and sell this template")
+ENDS = {
+    "ig": ("Comment “CALLBACK”", "I’ll DM you the template link and a free website checklist.", "Follow so my DM lands in your inbox · I built and sell this template"),
+    "link": ("Callback", "A Framer website template for local service businesses. $29.", "Link in bio · I built and sell this template"),
+}
 
 
 def main():
     OUT.mkdir(exist_ok=True); TMP.mkdir(exist_ok=True)
-    end = seg_card("end", card("end", *END, dark=True), 3.5)
+    for tag, end_text in ENDS.items():
+        build(tag, seg_card(f"end-{tag}", card(f"end-{tag}", *end_text, dark=True), 3.5))
+
+
+def build(tag, end):
+    sfx = "" if tag == "link" else f"-{tag}"
 
     # 1. Three fixes (problem → solution)
     v1 = [seg_card("v1a", card("v1a", "Your website is losing you calls.", "3 fixes I built into a template for local businesses"), 2.5),
@@ -118,7 +126,7 @@ def main():
         v3.append(seg_scroll(f"v3s{i}", ys[i], ys[i] + 400, 3.2, caption(f"v3s{i}", [a, b])))
     v3.append(end)
 
-    made = [stitch("callback-3-fixes", v1), stitch("callback-whole-template", v2), stitch("callback-90-minutes", v3)]
+    made = [stitch(f"callback-3-fixes{sfx}", v1), stitch(f"callback-whole-template{sfx}", v2), stitch(f"callback-90-minutes{sfx}", v3)]
     print(json.dumps([str(m) for m in made], indent=1))
 
 
